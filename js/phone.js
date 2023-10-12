@@ -18,17 +18,17 @@ const displayPhones = (phones) => {
     //Step 2
     const phoneCard = document.createElement("div");
     
-    phoneCard.classList = `card-compact w-96 bg-gray-100 shadow-xl`;
+    phoneCard.classList = `card-compact p-4 bg-gray-100 shadow-xl`;
     // Step 3
     phoneCard.innerHTML = `
     <figure>
               <img
-                src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
+                src="${phone.image}"
+                alt="Phones"
               />
             </figure>
             <div class="card-body">
-              <h2 class="card-title">Shoes!</h2>
+              <h2 class="card-title">${phone.phone_name}</h2>
               <p>If a dog chews shoes whose shoes does he choose?</p>
               <div class="card-actions justify-end">
                 <button class="btn btn-primary">Buy Now</button>
