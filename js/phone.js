@@ -1,4 +1,4 @@
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText,isShowAll) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
@@ -6,12 +6,12 @@ const loadPhone = async (searchText) => {
   const data = await res.json();
   const phones = data.data;
   // console.log(data.data)
-  displayPhones(phones);
+  displayPhones(phones,isShowAll);
 };
 
 // loadPhone();
 
-const displayPhones = (phones) => {
+const displayPhones = (phones,isShowAll) => {
   //Step 1
   const phoneContainer = document.getElementById("phone-container");
   // clear old phone models and display current brands
@@ -19,7 +19,7 @@ const displayPhones = (phones) => {
 
 // logics to show limited numbers items and all items
 const showAllContainer = document.getElementById('show-all-container');
-if(phones.length>12){
+if(phones.length>12 && !isShowAll){
   showAllContainer.classList.remove('hidden')
 }
 else{
@@ -27,11 +27,17 @@ else{
 
 }
 
+if(!isShowAll){
+  phones = phones.slice(0,12)
+}
+else{
+
+}
+
 
 
   // load limited number of items
 
-  phones = phones.slice(0,12)
 
   // show all and logics
 
@@ -69,23 +75,23 @@ else{
   toggleLoadingSpinner(false)
 };
 
-const handleSearch = () => {
+const handleSearch = (isShowAll) => {
   // console.log('search clicked')
   toggleLoadingSpinner(true)
   const searchField = document.getElementById("search-field");
   const searchText = searchField.value;
   // console.log(searchText)
-  loadPhone(searchText);
+  loadPhone(searchText,isShowAll);
 };
 
-const handleSearch2 = () => {
-  // console.log('search clicked')
-  toggleLoadingSpinner(true)
-  const searchField = document.getElementById("search-field2");
-  const searchText = searchField.value;
-  // console.log(searchText)
-  loadPhone(searchText);
-};
+// const handleSearch2 = () => {
+//   // console.log('search clicked')
+//   toggleLoadingSpinner(true)
+//   const searchField = document.getElementById("search-field2");
+//   const searchText = searchField.value;
+//   // console.log(searchText)
+//   loadPhone(searchText);
+// };
 
 
 const toggleLoadingSpinner = (isLoading)=>{
@@ -97,4 +103,9 @@ const toggleLoadingSpinner = (isLoading)=>{
     loadingSpinner.classList.add('hidden');
 
   }
+}
+
+
+const handleShowAll = ()=>{
+  handleSearch(true)
 }
