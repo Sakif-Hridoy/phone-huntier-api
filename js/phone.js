@@ -12,17 +12,38 @@ const loadPhone = async (searchText) => {
 // loadPhone();
 
 const displayPhones = (phones) => {
-    //Step 1
-    const phoneContainer = document.getElementById('phone-container');
-    // clear old phone models and display current brands
-    phoneContainer.textContent = '';
+  //Step 1
+  const phoneContainer = document.getElementById("phone-container");
+  // clear old phone models and display current brands
+  phoneContainer.textContent = "";
+
+// logics to show limited numbers items and all items
+const showAllContainer = document.getElementById('show-all-container');
+if(phones.length>12){
+  showAllContainer.classList.remove('hidden')
+}
+else{
+  showAllContainer.classList.add('hidden')
+
+}
+
+
+
+  // load limited number of items
+
+  phones = phones.slice(0,12)
+
+  // show all and logics
+
+
+
 
   // console.log(phones)
   phones.forEach((phone) => {
     // console.log(phone);
     //Step 2
     const phoneCard = document.createElement("div");
-    
+
     phoneCard.classList = `card-compact p-4 bg-gray-100 shadow-xl`;
     // Step 3
     phoneCard.innerHTML = `
@@ -42,18 +63,24 @@ const displayPhones = (phones) => {
     `;
 
     //step 4
-    phoneContainer.appendChild(phoneCard)
+    phoneContainer.appendChild(phoneCard);
   });
 };
 
-const handleSearch = ()=>{
+const handleSearch = () => {
   // console.log('search clicked')
 
-  const searchField = document.getElementById('search-field');
+  const searchField = document.getElementById("search-field");
   const searchText = searchField.value;
   // console.log(searchText)
-  loadPhone(searchText)
+  loadPhone(searchText);
+};
 
-}
+const handleSearch2 = () => {
+  // console.log('search clicked')
 
-
+  const searchField = document.getElementById("search-field2");
+  const searchText = searchField.value;
+  // console.log(searchText)
+  loadPhone(searchText);
+};
