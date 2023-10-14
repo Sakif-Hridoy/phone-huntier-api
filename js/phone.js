@@ -54,16 +54,19 @@ else{
     // Step 3
     phoneCard.innerHTML = `
     <figure>
+              <div class="card-actions justify-center">
               <img
-                src="${phone.image}"
-                alt="Phones"
-              />
+              src="${phone.image}"
+              alt="Phones" 
+            />
+              </div>
+            
             </figure>
             <div class="card-body">
-              <h2 class="card-title">${phone.phone_name}</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
+              <h2 class="card-title justify-center">${phone.phone_name}</h2>
+              <p class="card-actions justify-center">If a dog chews shoes whose shoes does he choose?</p>
+              <div class="card-actions justify-center">
+                <button class="btn btn-primary" onclick="handleShowDetail('${phone.slug}')" >Show Details</button>
               </div>
             </div>
     `;
@@ -108,4 +111,36 @@ const toggleLoadingSpinner = (isLoading)=>{
 
 const handleShowAll = ()=>{
   handleSearch(true)
+}
+
+
+const handleShowDetail=async (id)=>{
+  // console.log("show details",id)
+  // load single phone data
+  const res = await fetch(` https://openapi.programming-hero.com/api/phone/${id}`)
+  // .then(res=>res.json())
+  // .then(data=>console.log(data))
+  const data = await res.json();
+  // console.log(data)
+
+  const phone = data.data;
+
+  showPhoneDetails(phone)
+}
+
+const showPhoneDetails = (phone)=>{
+
+  const phoneName = document.getElementById('show-detail-phone-name');
+  phoneName.innerText = phone.name;
+  const showDetailContainer = document.getElementById('show-detail-container');
+  showDetailContainer.innerHTML = `
+
+    <img src="${phone.image}" />
+    <p><apan>Storage:${phone.mainFeatures.storage}</span></p>
+    <p><apan>GPS:${phone.others.GPS}</span></p>
+
+
+  `
+  // show the modal
+  show_details_modal.showModal()
 }
